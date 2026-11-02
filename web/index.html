@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LyricAlign Studio</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#10131a;color:#e5e8ed}
+body{max-width:1050px;margin:auto;padding:24px}
+h1{letter-spacing:-.03em;margin-bottom:4px}h2{font-size:17px;margin:0 0 12px}
+p,.hint{color:#a4adbb}section{background:#1b202b;border:1px solid #343b4b;border-radius:12px;padding:20px;margin:16px 0}
+label{display:block;margin:8px 0}input,select,textarea,button{font:inherit;border-radius:7px;border:1px solid #424c5e;color:#e5e8ed;background:#252c3a;padding:9px}
+textarea{width:calc(100% - 22px);min-height:110px;resize:vertical}
+input[type=file]{max-width:100%}input[type=number]{width:80px}input[type=text]{max-width:100%}
+button{cursor:pointer;background:#3869b4;border:0;font-weight:600}button:hover{filter:brightness(1.17)}
+button:disabled{opacity:.5}.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.controls>input{flex:1}
+audio{width:100%;margin:10px 0}.line{background:#252c3a;padding:10px;margin:8px 0;border-radius:8px;border:1px solid transparent}
+.line.active{border-color:#7da7ff}.fields{display:flex;align-items:center;gap:7px}.fields input[data-field=text]{flex:1;min-width:60px}
+.tokens{display:flex;gap:5px;overflow-x:auto;padding-top:10px}.tokens label{background:#181d27;padding:5px;border-radius:5px;min-width:62px}
+.tokens input{display:block;width:62px;box-sizing:border-box;margin:2px 0;padding:4px;font-size:12px}
+#status{min-height:25px;color:#b9d3ff}@media(max-width:600px){body{padding:10px}.fields input[type=number]{width:50px}}
+</style></head>
+<body>
+<header><h1>LyricAlign Studio</h1><p>Local audio · ASR transcription · karaoke alignment · editable timings · export</p></header>
+<section><h2>1. Audio</h2><input id="audioFile" type="file" accept="audio/*,video/mp4"><audio id="audio" controls></audio>
+<p class="hint">The browser audio stays on this device. For offline ASR, enter the absolute local path to the same audio file.</p>
+<div class="controls"><input id="localPath" placeholder="/Users/me/Music/my-song.mp3" aria-label="Local audio path"><select id="model"><option>tiny</option><option>base</option><option selected>small</option><option>medium</option><option>large-v3</option></select><button id="transcribe">Transcribe offline</button></div></section>
+<section><h2>2. Lyrics & transcript</h2><textarea id="lyrics" placeholder="Paste the song lyrics, one line per row" aria-label="Lyrics"></textarea>
+<label>Or import your own timed transcript (JSON): <input id="transcriptFile" type="file" accept=".json"></label>
+<button id="align">Align lyrics with transcript</button></section>
+<section><h2>3. Review & edit</h2><div class="controls"><label>Shift all timings (seconds) <input id="delta" type="number" step=".1" value="0"></label><button id="offset">Apply offset</button><label>Import saved timeline <input type="file" id="jsonImport" accept=".json"></label></div>
+<p>Playback: <span id="current">0.00s</span>. Edit line and token start/end values directly. Click ▶ to audition a line.</p><div id="editor"></div></section>
+<section><h2>4. Export</h2><div class="controls"><select id="format"><option value="json">JSON</option><option value="lrc">LRC</option><option value="srt">SRT</option><option value="ttml">TTML</option><option value="ass">ASS karaoke</option></select><button id="download">Download timeline</button></div></section>
+<p id="status" role="status">Ready. Use original or licensed music and lyrics.</p><script src="/bundle.js" defer></script>
+</body></html>

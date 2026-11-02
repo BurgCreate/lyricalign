@@ -1,6 +1,6 @@
 {
   "name": "@burgcreate/lyricalign",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "description": "Offline lyric-to-timed-transcript alignment with word-level karaoke timings",
   "type": "module",
@@ -21,15 +21,17 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test": "node tests/align.test.mjs",
-    "check": "npm run build && npm test"
+    "build": "tsc -p tsconfig.json && esbuild web/app.js --bundle --platform=browser --format=iife --outfile=web/bundle.js",
+    "test": "node tests/align.test.mjs && node tests/formats.test.mjs",
+    "check": "npm run build && npm test",
+    "studio": "python3 python/server.py"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
     "typescript": "^5.9.3"
   },
   "license": "MIT"
